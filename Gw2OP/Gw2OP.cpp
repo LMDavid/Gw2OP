@@ -17,6 +17,10 @@ BOOL				InitInstance(HINSTANCE, int);
 LRESULT CALLBACK	WndProc(HWND, UINT, WPARAM, LPARAM);
 INT_PTR CALLBACK	About(HWND, UINT, WPARAM, LPARAM);
 
+#define ELPP_LOGGING_FLAGS_FROM_ARG
+INITIALIZE_EASYLOGGINGPP
+
+
 int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
                      _In_opt_ HINSTANCE hPrevInstance,
                      _In_ LPTSTR    lpCmdLine,
@@ -25,11 +29,26 @@ int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
 	UNREFERENCED_PARAMETER(hPrevInstance);
 	UNREFERENCED_PARAMETER(lpCmdLine);
 
- 	// TODO: Place code here.
-    for (int i = 1; i < __argc; ++i) {
-
+    // TODO: Place code here.
+    START_EASYLOGGINGPP(__argc, __argv);
+    if (__argc > 1 && _tcscmp(__targv[1], _T("-v")) == 0) {
+        el::Loggers::setVerboseLevel(1);
     }
-
+    el::Configurations conf("log_conf.conf");
+    CHAR filePath[MAX_PATH], dirPath[MAX_PATH], logExt[] = "/logs/Gw2OP.log";
+    if (GetModuleFileNameA(NULL, filePath, MAX_PATH) == MAX_PATH) {
+        MessageBox(NULL, _T("Path too long"), NULL, MB_ICONERROR);
+        return EXIT_FAILURE;
+    }
+    if (_splitpath_s(filePath, NULL, 0, dirPath, MAX_PATH, NULL, 0, NULL, 0) != 0) {
+        MessageBox(NULL, _T("Could not split path"), NULL, MB_ICONERROR);
+        return EXIT_FAILURE;
+    }
+    strcat_s(dirPath, logExt);
+    conf.set(el::Level::Global, el::ConfigurationType::Filename, dirPath);
+    el::Loggers::reconfigureAllLoggers(conf);
+    LOG(INFO) << _T("Logging initialized");
+    VLOG(1) << _T("VARBOSSSSAAAAA");
 
 
 
