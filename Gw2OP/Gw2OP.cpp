@@ -4,6 +4,15 @@
 #include "stdafx.h"
 #include "Gw2OP.h"
 
+#ifdef _DEBUG
+#define ONLY_DEBUG(x) x
+#else
+#define ONLY_DEBUG(x) {}
+#endif
+
+#define ELPP_LOGGING_FLAGS_FROM_ARG
+INITIALIZE_EASYLOGGINGPP
+
 #define MAX_LOADSTRING 100
 
 // Global Variables:
@@ -17,9 +26,6 @@ BOOL				InitInstance(HINSTANCE, int);
 LRESULT CALLBACK	WndProc(HWND, UINT, WPARAM, LPARAM);
 INT_PTR CALLBACK	About(HWND, UINT, WPARAM, LPARAM);
 
-#define ELPP_LOGGING_FLAGS_FROM_ARG
-INITIALIZE_EASYLOGGINGPP
-
 
 int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
                      _In_opt_ HINSTANCE hPrevInstance,
@@ -29,11 +35,12 @@ int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
 	UNREFERENCED_PARAMETER(hPrevInstance);
 	UNREFERENCED_PARAMETER(lpCmdLine);
 
-    // TODO: Place code here.
+    // TODO ask in github to allow for wargv as an argument or pull the changes myself
     START_EASYLOGGINGPP(__argc, __argv);
     if (__argc > 1 && _tcscmp(__targv[1], _T("-v")) == 0) {
         el::Loggers::setVerboseLevel(1);
     }
+    //
     el::Configurations conf("log_conf.conf");
     CHAR filePath[MAX_PATH], dirPath[MAX_PATH], logExt[] = "/logs/Gw2OP.log";
     if (GetModuleFileNameA(NULL, filePath, MAX_PATH) == MAX_PATH) {
@@ -47,8 +54,7 @@ int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
     strcat_s(dirPath, logExt);
     conf.set(el::Level::Global, el::ConfigurationType::Filename, dirPath);
     el::Loggers::reconfigureAllLoggers(conf);
-    LOG(INFO) << _T("Logging initialized");
-    VLOG(1) << _T("VARBOSSSSAAAAA");
+    LOG(DEBUG) << _T("Logging initialized");
 
 
 
