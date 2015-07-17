@@ -5,6 +5,8 @@ VisualStudioVersion = 12.0.40418.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Gw2OP", "Gw2OP\Gw2OP.vcxproj", "{F769E11B-166D-4043-8F09-8F9A6BB7B248}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "easyloggingpp", "easyloggingpp", "{9E719DBE-24B9-484F-9D5A-64CEF50D3045}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
