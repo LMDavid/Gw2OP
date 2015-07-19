@@ -5,6 +5,13 @@ VisualStudioVersion = 12.0.40418.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Gw2OP", "Gw2OP\Gw2OP.vcxproj", "{F769E11B-166D-4043-8F09-8F9A6BB7B248}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "easyloggingpp", "easyloggingpp", "{E8D52B84-ADDD-4A06-AEB8-0E25AB255D0D}"
+	ProjectSection(SolutionItems) = preProject
+		easyloggingpp\easylogging++.h = easyloggingpp\easylogging++.h
+		easyloggingpp\log_conf.conf = easyloggingpp\log_conf.conf
+		easyloggingpp\README.md = easyloggingpp\README.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
